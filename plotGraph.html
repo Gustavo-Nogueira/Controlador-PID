@@ -3,15 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>Plot Graph</title>
-	
+
 	<!--Incluindo Chart JS-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-	
+
 	<style type="text/css">
 		.ctxGraph{
 			display: block;
 			position: relative;
-			height:40vh; 
+			height:40vh;
 			width:80vw;
 		}
 	</style>
@@ -23,11 +23,11 @@
 		<canvas class="graph"></canvas>
 	</div>
 
-	
+
 	<script type="text/javascript">
-		
+
 		/*  Função addData()
-			Objeto gráfico) chart = chartG	
+			Objeto gráfico) chart = chartG
 			Label) Eixo X
 			Data) Eixo Y
 		*/
@@ -37,13 +37,13 @@
         		dataset.data.push(data);
     		});
     		chart.update(0);//Parâmetro: Sem animção durante a atualização do Gráfico;
-		}	
-		
-		
+		}
+
+
 		var ctx = document.getElementsByClassName("graph");
 		//var x = [0,1,2,3,4,5,6,7,8,10];
 		//var y = [5,15,20,4,8,24,17,19,23,27,30];
-		
+
 		//Type, Data e Options
 		var chartG = new Chart(ctx,{
 			type: 'line',
@@ -78,7 +78,7 @@
 							fontColor: 'rgba(0,0,200,.85)',
 							fontSize:12,
 							fontStyle: "bold",
-							labelString:'Time'		
+							labelString:'Time'
 						}
 					}],
 					yAxes:[{
@@ -88,30 +88,30 @@
 							fontColor: 'rgba(0,0,200,.85)',
 							fontSize:12,
 							fontStyle: "bold",
-							labelString:'Distance'		
+							labelString:'Distance'
 						}
 					}]
 				}
 			}
 		});
-		
+
 		var i = 0;
 		var delay = 100;
-    	var timer = setInterval(function() { 
+    	var timer = setInterval(function() {
     		addData(chartG,i,i*i);
-			i++; 
+			i++;
     	}, delay);
 
 		//document.body.innerHTML = "";
 	</script>
 	<input type="button" onclick="clearInterval(timer)" value="Stop">
-    
+
 </body>
 </html>
 
 <!--
 	Documentação Chart Js: https://www.chartjs.org/docs/latest/
-	
+
 	Pendências:
 
 	Função para pegar os dados de Distância da ESP32 e incluir no gráfico utilizando a função "addData";
@@ -122,6 +122,7 @@
 	Redefinir escala Máxima das coordenadas;
 	Formatação da página mais amigável;
 	Inserir a página no servidor da ESP;
+	Testando
 
 	Concluídas:
 
