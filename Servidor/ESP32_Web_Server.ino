@@ -3,10 +3,10 @@
 #include <WebServer.h> //https://github.com/bbx10/WebServer_tng
 
 WebServer server ( 80 );
-
-//const char* ssid     = "TORRE 01";
-//const char* password = "nogueira@2019";
-
+/*
+  Utilizei o roteador do meu celular;
+  Obs: não precisa ter internet =);
+*/
 const char* ssid     = "GustavoNr";
 const char* password = "10101010";
 
@@ -86,7 +86,6 @@ void handleRoot(){
   Pega o valor selecionado no no seletor radio;
 */
 void getSubmission() {
-  
   String LEDValue;
   LEDValue = server.arg("LED");//Pegando valor do seletor on/off
   Serial.println("Set GPIO "); 
@@ -113,21 +112,19 @@ void getSubmission() {
   Retorna o conteúdo da página;
 */
 String getPage(){
-  /*String page = "<html lang=en-EN><head><meta http-equiv='refresh' content='60'/>";
+  String page = "<html lang=en-EN><head><meta http-equiv='refresh' content='60'/>";
   page += "<title>ESP32 WebServer</title>";
   page += "<style> body { background-color: #fffff; font-family: Arial, Helvetica, Sans-Serif; Color: #000000; }</style>";
   page += "</head><body><h1>ESP32 WebServer</h1>";
   page += "<h3>LED</h3>";
   page += "<form action='/' method='POST'>";
   page += "<ul><li>LED";
-  page += "";
-  
   page += "<INPUT type='radio' name='LED' value='1'>ON";
   page += "<INPUT type='radio' name='LED' value='0'>OFF</li></ul>";
   page += "<INPUT type='submit' value='Submit'>";
-  page += "</body></html>";*/
+  page += "</body></html>";
   
-  String page = "<html lang=en-EN><head><meta http-equiv='refresh' content='60'/><title>ESP32 WebServer</title><style> body { background-color: #fffff; font-family: Arial, Helvetica, Sans-Serif; Color: #000000; }</style></head><body><h1>ESP32 WebServer</h1><h3>LED</h3><form action='/' method='POST'><ul><li>LED<INPUT type='radio' name='LED' value='1'>ON<INPUT type='radio' name='LED' value='0'>OFF</li></ul><INPUT type='submit' value='Submit'></body></html>";
+  //String page = "<html lang=en-EN><head><meta http-equiv='refresh' content='60'/><title>ESP32 WebServer</title><style> body { background-color: #fffff; font-family: Arial, Helvetica, Sans-Serif; Color: #000000; }</style></head><body><h1>ESP32 WebServer</h1><h3>LED</h3><form action='/' method='POST'><ul><li>LED<INPUT type='radio' name='LED' value='1'>ON<INPUT type='radio' name='LED' value='0'>OFF</li></ul><INPUT type='submit' value='Submit'></body></html>";
 
   
   return page;

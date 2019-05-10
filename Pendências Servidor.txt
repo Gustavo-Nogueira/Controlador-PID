@@ -1,0 +1,34 @@
+									Servidor WEB ESP32
+
+Pendências de Servidor:
+
+	* Estabelecer comunicação entre os sensores e o servidor utilizando Ajax;
+		\-> * Função para pegar os dados de Distância(conforme a taxa de atualização) da ESP32 e incluir no gráfico utilizando a método "addData()" -> Javascript/Ajax;
+	* Receber entrada(SSID & Password) da rede em que será alocado o servidor da ESP;
+	* Gerar Relatório(com tempo etc) após estabilização;
+
+	Concluídas:
+
+
+######################################################################################################################################
+
+Pendências de interface:
+
+	Documentação Chart Js: https://www.chartjs.org/docs/latest/
+
+	* Informar na página os valores das variáveis de controle(kp,kc,ki);	
+	* Definir reta(sinal) de referência de acordo com andar desejado;
+	* Definir coodenada X como sendo do tipo tempo;
+ 	* Redefinir escala Máxima das coordenadas;
+	* Formatação da página mais amigável;
+	
+
+	Concluídas:
+
+		
+######################################################################################################################################
+
+	
+
+
+
