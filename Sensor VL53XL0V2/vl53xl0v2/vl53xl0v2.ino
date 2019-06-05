@@ -40,19 +40,16 @@ void setup()
   // fast as possible).  To use continuous timed mode
   // instead, provide a desired inter-measurement period in
   // ms (e.g. sensor.startContinuous(100)).
-  sensor.startContinuous();
+  sensor.startContinuous(1);// Periodo de amostragem de  1ms
 }
 
 void loop()
 {
-  //int distance;
   int distance =sensor.readRangeContinuousMillimeters();
   //int distance =sensor.startContinuous(100);
-  distance = distance;
   //distance=media_movel(sensor.readRangeContinuousMillimeters()); // filtro media movel aplicado
   if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
-  Serial.println(distance); // Saida em milimetros
-  delay(100); // atraso de 100 milisegundos
+  Serial.println(distance);//Saída em milimetros
 } 
 //int media_movel (int distance){ filtro media_movel
 //    int static prev_media;
