@@ -34,15 +34,6 @@
 
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-        <a class="nav-link" href="dynamic_plot.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-    </ul>
 
     <div id="content-wrapper">
 
@@ -57,6 +48,7 @@
         </ol>
 
         <!-- Icon Cards-->
+				<h1>Variáveis de controle</h1>
         <div class="row">
           <div class="col-xl-3 col-sm-6 mb-3">
             <div class="card text-white bg-primary o-hidden h-100">
@@ -161,12 +153,15 @@ setInterval(function(){updateChart()}, updateInterval);
 			</ol>
 
 			<!-- Area Chart Example-->
-			<div class="card mb-3">
-				<div class="card-header">
-					<i class="fas fa-chart-area"></i>
-					outro Gráfico</div>
-				<div class="card-body">
-					<canvas id="myAreaChart" width="100%" height="30"></canvas>
+			<div class="col-xl-3 col-sm-6 mb-3">
+				<div class="card text-white bg-success o-hidden h-100">
+					<div class="card-body">
+						<div class="card-body-icon">
+							<i class="fas fa-fw fa-shopping-cart"></i>
+						</div>
+						<div class="mr-5">Estabilização</div>
+					</div>
+					<input type="text">
 				</div>
 			</div>
 
