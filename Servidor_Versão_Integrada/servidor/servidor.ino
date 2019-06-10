@@ -4,13 +4,28 @@
 #include "index_WebPage.h" 
 
 WebServer server(80);
-int PIN = 5; 
 
-int vtest = 0;
-int Ki,Kp,Kd;//Variáveis de Controle
+//Parâmetros de Desempenho
+typedef struct{
+  String tUp; //Tempo de Subida
+  String tPeak; //Tempo de Pico
+  String tAccommodation; //Tempo de Acomodação
+  String erRegime; //Erro Regime
+}PERFORMANCE_PARAMETERS;
+
+//Variáveis de Controle
+typedef struct{
+  int Ki,Kp,Kd;  
+}CONTROL_VARIABLES;
+
+int PIN = 5; 
+int PINStatus1 = 2;
+int PINStatus2 = 4;
 int distance;// Distância captada pelo sensor
 int refSignal;// Andar desejado
-int systemStatus;// Estabilizado,Estabilizando,Sem Estabilização.
+String systemStatus;// Estabilizado,Estabilizando,Sem Estabilização.
+CONTROL_VARIABLES ctrlVariables;
+PERFORMANCE_PARAMETERS perfParameters;
 
 //SSID e Senha da Rede
 //const char* ssid = "TORRE 01";
@@ -27,22 +42,18 @@ void handleRoot() {
 
 //Para retornar os dados à página solicitados pela requisição 
 void handleUpdateRequest(){
-  Ki = ++vtest;
-  Kp = ++vtest;
-  Kd = ++vtest;
-  refSignal = ++vtest;
-  systemStatus = ++vtest;
   
-  int distance = digitalRead(PIN);
-  
-  String jsonData = "{\"Distance\":\""+String(distance)+"\", \"Ki\":\""+ String(Ki) +"\", \"Kp\":\""+ String(Kp) +"\",\"Kd\":\""+ String(Kd) + "\",\"ReferenceSignal\":\""+ String(refSignal) +"\",\"SystemStatus\":\""+ String(systemStatus) +"\"}";
+  String jsonData = "{\"Distance\":\""+String(distance)+"\", \"Ki\":\""+ String(ctrlVariables.Ki) +"\", \"Kp\":\""+ String(ctrlVariables.Kp) +"\",\"Kd\":\""+ String(ctrlVariables.Kd) + "\",\"ReferenceSignal\":\""+ String(refSignal) +"\",\"SystemStatus\":\""+ String(systemStatus) +"\",\"UpTime\":\""+String(perfParameters.tUp)+"\",\"PeakTime\":\""+String(perfParameters.tPeak)+"\",\"AccommodationTime\":\""+String(perfParameters.tAccommodation)+"\",\"RegimeError\":\""+String(perfParameters.erRegime)+"\"}";
   
   server.send(200, "text/plane", jsonData); //Envia dados JSON para a requisição AJAX
 }
 
- 
-void setup(void){
+void setup(void){ 
   pinMode(PIN, INPUT);//Entrada do sensor
+  //Teste Status
+  pinMode(PINStatus1, INPUT);
+  pinMode(PINStatus2, INPUT);
+  
   Serial.begin(115200);
   Serial.println();
   Serial.println("Inicializando...");
@@ -81,6 +92,40 @@ void setup(void){
 
 //Tratando as requisições do cliente
 void loop(void){
+   /*
+       Valor   |     Status
+        00     | Inicializando
+        01     | Estabilizando
+        10     | Estavel
+        11     | Nao_Estavel
+   */  
+   
+  if(!(digitalRead(PINStatus1))&&!(digitalRead(PINStatus2))){
+    refSignal = 1;
+    ctrlVariables.Kp = 10;
+    ctrlVariables.Kd = 15;
+    ctrlVariables.Ki = 20;
+    systemStatus = "Inicializando";
+  }
+  else{
+    if(!(digitalRead(PINStatus1))&&(digitalRead(PINStatus2))){
+        distance = digitalRead(PIN);
+        systemStatus = "Estabilizando";
+    }
+    else{
+      if((digitalRead(PINStatus1))&&!(digitalRead(PINStatus2))){
+        perfParameters.tUp = "10";
+        perfParameters.tPeak = "20";
+        perfParameters.tAccommodation = "30";
+        perfParameters.erRegime = "40";
+        systemStatus = "Estavel";
+      }
+      else{
+        systemStatus = "Nao_Estavel";    
+      }
+    }
+  }
+ 
   server.handleClient();
   delay(1);
 }

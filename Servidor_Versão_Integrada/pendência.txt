@@ -1,18 +1,29 @@
 Pendências:
 
-	Urgência:	
+	
+	Urgência:
+	
+	
 	Alta:
 	
-	- Criar funções(no arduino ide) para mandar para página, após estabilização, os parâmetros de desempenho;
-	- Enviar resposta para a página após estabilização e após tempo máximo(ajuda a definir a escala do gráfico);
-	- Informar após estabilização o Tempo de Subida, Tempo de Pico, Tempo de Acomodação & Erro Regime.(Parâmetros de Desempenho);
-	- O que fazer após nova requisição de troca de andar? => Solicitar print da tela para o usuário ou Gerar imagem/pdf com o gráfico junto com as variáveis de controle utilizadas & parâmetros de desempenho.E por fim reinicializar o gráfico;
-	- Requisitar somente os dados necessários para cada estado do sistema(pré-estabilização,durante a estabilização,pós-estabilização).
+	
+		- Criar funções(no arduino ide) para mandar para página, após estabilização, os parâmetros de desempenho;
+	
+		- Enviar resposta para a página após estabilização e após tempo máximo(ajuda a definir a escala do gráfico);
+	
+		- Informar após estabilização o Tempo de Subida, Tempo de Pico, Tempo de Acomodação & Erro Regime.(Parâmetros de Desempenho);
+
+		- O que fazer após nova requisição de troca de andar? => Solicitar print da tela para o usuário ou Gerar imagem/pdf com o gráfico junto com as variáveis de controle utilizadas & parâmetros de desempenho.E por fim reinicializar o gráfico;
 	
 	Baixa:
 
-	- Escala do Gráfico;
-	- Integrar com a página do Caio;
+	
+		- Escala do Gráfico;
+	
+		- Integrar com a página do Caio;
+
+
+
 
 
 Sinal de referência veja em: 
