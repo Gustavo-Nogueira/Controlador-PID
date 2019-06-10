@@ -92,7 +92,7 @@ const char WEB_PAGE[] PROGMEM = R"=====(
   </div>
  
   <script>
-  var txUpadate = 5000;//Taxa de atualização
+  var txUpadate = 100;//Taxa de atualização
   var distanceValues = [];
   var timeValues = [];
   function loadGraph(){
@@ -111,11 +111,12 @@ const char WEB_PAGE[] PROGMEM = R"=====(
               }],
           },
           options: {
-              title: {
-                      display: true,
-                      text: "PID - f(time)"
-                  },
+              title:{
+                display: true,
+                text: "PID - f(time)"
+              },
               maintainAspectRatio: false,
+              animation: false,
               elements: {
               line: {
                       tension: 0.5 //Suavização das curvas
