@@ -1,5 +1,5 @@
 const char WEB_PAGE[] PROGMEM = R"=====(
-
+  
 <!DOCTYPE html>
 <html lang="pt-br">
 <!--Comentários-->
@@ -110,10 +110,11 @@ const char WEB_PAGE[] PROGMEM = R"=====(
   <div id="systemStable">
     <div style="text-align:center;"><b>Parâmetros de Desempenho</b><br></div>
     <table id="resultDataTable">
-      <tr><th>Tempo de Subida</th><th>Tempo de Pico</th><th>Tempo de Acomodação</th><th>Erro Regime</th></tr>
+      <tr><th>Tempo de Subida/Descida</th><th>Tempo de Pico</th><th>Overshoot</th><th>Tempo de Acomodação</th><th>Erro Regime</th></tr>
       <tr>
           <td id="tSubida"></td> 
           <td id="tPico"></td> 
+          <td id="ovrShoot"></td> 
           <td id="tAcomodacao"></td> 
           <td id="erRegime"></td> 
       </tr>
@@ -296,6 +297,7 @@ const char WEB_PAGE[] PROGMEM = R"=====(
             //Mensagem de Sucesso + Parêmetros de Desempenho...   
             document.getElementById("tSubida").innerHTML = data.UpTime;
             document.getElementById("tPico").innerHTML = data.PeakTime;
+            document.getElementById("ovrShoot").innerHTML = data.Overshoot;
             document.getElementById("tAcomodacao").innerHTML = data.AccommodationTime;
             document.getElementById("erRegime").innerHTML = data.RegimeError;
             

@@ -9,6 +9,7 @@ WebServer server(80);
 typedef struct{
   String tUp; //Tempo de Subida
   String tPeak; //Tempo de Pico
+  String overshoot; //Overshoot
   String tAccommodation; //Tempo de Acomodação
   String erRegime; //Erro Regime
 }PERFORMANCE_PARAMETERS;
@@ -43,7 +44,7 @@ void handleRoot() {
 //Para retornar os dados à página solicitados pela requisição 
 void handleUpdateRequest(){
   
-  String jsonData = "{\"Distance\":\""+String(distance)+"\", \"Ki\":\""+ String(ctrlVariables.Ki) +"\", \"Kp\":\""+ String(ctrlVariables.Kp) +"\",\"Kd\":\""+ String(ctrlVariables.Kd) + "\",\"ReferenceSignal\":\""+ String(refSignal) +"\",\"SystemStatus\":\""+ String(systemStatus) +"\",\"UpTime\":\""+String(perfParameters.tUp)+"\",\"PeakTime\":\""+String(perfParameters.tPeak)+"\",\"AccommodationTime\":\""+String(perfParameters.tAccommodation)+"\",\"RegimeError\":\""+String(perfParameters.erRegime)+"\"}";
+  String jsonData = "{\"Distance\":\""+String(distance)+"\", \"Ki\":\""+ String(ctrlVariables.Ki) +"\", \"Kp\":\""+ String(ctrlVariables.Kp) +"\",\"Kd\":\""+ String(ctrlVariables.Kd) + "\",\"ReferenceSignal\":\""+ String(refSignal) +"\",\"SystemStatus\":\""+ String(systemStatus) +"\",\"UpTime\":\""+String(perfParameters.tUp)+"\",\"PeakTime\":\""+String(perfParameters.tPeak)+"\",\"Overshoot\":\""+String(perfParameters.overshoot)+"\",\"AccommodationTime\":\""+String(perfParameters.tAccommodation)+"\",\"RegimeError\":\""+String(perfParameters.erRegime)+"\"}";
   
   server.send(200, "text/plane", jsonData); //Envia dados JSON para a requisição AJAX
 }
@@ -116,8 +117,9 @@ void loop(void){
       if((digitalRead(PINStatus1))&&!(digitalRead(PINStatus2))){
         perfParameters.tUp = "10";
         perfParameters.tPeak = "20";
-        perfParameters.tAccommodation = "30";
-        perfParameters.erRegime = "40";
+        perfParameters.overshoot = "30";
+        perfParameters.tAccommodation = "40";
+        perfParameters.erRegime = "50";
         systemStatus = "Estavel";
       }
       else{
