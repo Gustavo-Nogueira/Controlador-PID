@@ -56,7 +56,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-comments"></i>
                 </div>
-                <div class="mr-5">KP</div>
+                <div class="mr-5">Kp</div>
               </div>
               <input type="number">
               </a>
@@ -68,7 +68,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-list"></i>
                 </div>
-                <div class="mr-5">KV</div>
+                <div class="mr-5">Kd</div>
               </div>
               <input type="number">
               </a>
@@ -80,7 +80,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-shopping-cart"></i>
                 </div>
-                <div class="mr-5">KC</div>
+                <div class="mr-5">Ki</div>
               </div>
               <input type="number">
             </div>
@@ -140,54 +140,20 @@ setInterval(function(){updateChart()}, updateInterval);
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
-<div id="content-wrapper">
-
-		<div class="container-fluid">
-
-			<!-- Breadcrumbs-->
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item">
-					<a href="#">Dashboard</a>
-				</li>
-				<li class="breadcrumb-item active">Charts</li>
-			</ol>
-
-			<!-- Area Chart Example-->
-			<div class="col-xl-3 col-sm-6 mb-3">
-				<div class="card text-white bg-success o-hidden h-100">
-					<div class="card-body">
-						<div class="card-body-icon">
-							<i class="fas fa-fw fa-shopping-cart"></i>
-						</div>
-						<div class="mr-5">Estabilização</div>
-					</div>
-					<input type="text">
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-8">
-					<div class="card mb-3">
-						<div class="card-header">
-							<i class="fas fa-chart-bar"></i>
-							outro Gráfico</div>
-						<div class="card-body">
-							<canvas id="myBarChart" width="100%" height="50"></canvas>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="card mb-3">
-						<div class="card-header">
-							<i class="fas fa-chart-pie"></i>
-							outro Gráfico</div>
-						<div class="card-body">
-							<canvas id="myPieChart" width="100%" height="100"></canvas>
+<p><h2>Parâmetros de Desempenho</h2>
+							<table id="table" >
+							<tr>
+								<th>Tempo de Subida</th>
+								<th>Tempo de Pico</th>
+								<th>Tempo de Acomodação</th>
+								<th>Erro Regime</th>
+							</tr></p>
+						</table>
+							<p></p>
+							<button class="button">Gerar Relatório</button>
 						</div>
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 </html>
