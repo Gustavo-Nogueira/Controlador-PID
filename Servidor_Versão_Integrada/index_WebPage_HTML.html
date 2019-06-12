@@ -1,37 +1,53 @@
-  
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <!--Comentários-->
 <head>
-  <meta charset="UTF-8"/> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+  <meta charset="UTF-8"/>
   <title>PID Controller</title>
-  
+
   <!--Incluindo Chart JS-->
-  <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>  
-  
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
   <style>
   canvas{
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
   }
- 
+
   /*Formatação da Tabela do Gráfico*/
   #chartDataTable {
     font-family: "Times New Roman", Times, serif;
     border-collapse: collapse;
     width: 100%;
   }
- 
+
   #chartDataTable td, #chartDataTable th {
     border: 1px;
     border-color: rgb(128,128,128);
     border-style: solid;
     padding: 8px;
   }
- 
+
   #chartDataTable tr:nth-child(even){background-color: #f2f2f2;}
-  
+
   #chartDataTable th {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -82,21 +98,77 @@
     background-color: rgba(0,0,200,.85);
     color: white;
   }
-  </style>
+
+  #table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#table td, #table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#table tr:nth-child(even){background-color: #f2f2f2;}
+
+#table tr:hover {background-color: #ddd;}
+
+#table th {
+  padding-top: 12px;
+  padding-bottom: -30px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+.button {
+  display: inline-block;
+  padding: 8px 8px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+</style>
 </head>
- 
-<body>
+
+<body id="page-top">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Bancada PID</a>
+      </div>
+    </div>
+  </nav>
   <!--Tabela de Entradas-->
   <div id="inputData">
-    <div style="text-align:center;"><b>Dados de Entrada</b></div>
-    <table id="inputDataTable">
-      <tr><th>Kp</th><th>Kd</th><th>Ki</th><th>Sinal de Referência</th><th>Status</th></tr> 
-      <tr><td id="Kp">0</td><td id="Kd">0</td><td id="Ki">0</td><td id="refSignal">0</td><td id="status">0</td></tr> 
+    <div style="text-align:center;"><h1>Dados de Entrada</h1></div>
+    <table id="table">
+      <tr><th>Kp</th><th>Kd</th><th>Ki</th><th>Sinal de Referência</th><th>Status</th></tr>
+      <tr><td id="Kp">0</td><td id="Kd">0</td><td id="Ki">0</td><td id="refSignal">0</td><td id="status">0</td></tr>
     </table>
   </div>
 
   <br/>
-    
+
   <!--Gráfico-->
   <div style="text-align:center;"><b>Controller Graph</b><br></div>
   <div class="chart-container" position: relative; height:350px; width:100%">
@@ -107,15 +179,15 @@
 
   <!--Resultado: Sistema Estável-->
   <div id="systemStable">
-    <div style="text-align:center;"><b>Parâmetros de Desempenho</b><br></div>
-    <table id="resultDataTable">
+    <div style="text-align:center;"><h2>Parâmetros de Desempenho</h2><br></div>
+    <table id="table">
       <tr><th>Tempo de Subida/Descida</th><th>Tempo de Pico</th><th>Overshoot</th><th>Tempo de Acomodação</th><th>Erro Regime</th></tr>
       <tr>
-          <td id="tSubida"></td> 
-          <td id="tPico"></td> 
-          <td id="ovrShoot"></td> 
-          <td id="tAcomodacao"></td> 
-          <td id="erRegime"></td> 
+          <td id="tSubida"></td>
+          <td id="tPico"></td>
+          <td id="ovrShoot"></td>
+          <td id="tAcomodacao"></td>
+          <td id="erRegime"></td>
       </tr>
     </table>
   </div>
@@ -127,7 +199,7 @@
 
   <!--Botão de Gerar Relatório-->
   <div id="divReport" style="text-align:center;">
-    <button id="btnReport">Gerar Relatório</button>
+    <button class="button" id="btnReport">Gerar Relatório</button>
   </div>
 
   <br/>
@@ -138,7 +210,7 @@
       <tr><th>Tempo</th><th>Distância</th></tr>
     </table>
   </div>
- 
+
   <script>
   var txUpadate = 1000;//Taxa de atualização
   var colorReference = new Array(3);
@@ -154,7 +226,7 @@
               labels: timeValues,  //Eixo X (Distância)
               datasets: [{
                   label: "Distância",
-                  fill: false,  
+                  fill: false,
                   borderColor: 'rgba(0,0,200,.85)',// Cor da linha do Gráfico
                   backgroundColor: 'transparent',
                   data: distanceValues, //Eixo Y (Tempo)
@@ -180,7 +252,7 @@
                           fontColor: 'rgba(0,0,200,.85)',
                           fontSize:12,
                           fontStyle: "bold",
-                          labelString:'Tempo'    
+                          labelString:'Tempo'
                         }
                       }],
                       yAxes:[{
@@ -199,32 +271,32 @@
                           fontColor: 'rgba(0,0,200,.85)',
                           fontSize:12,
                           fontStyle: "bold",
-                          labelString:'Distance'    
+                          labelString:'Distance'
                         }
                       }]
               }
           }
       });
-   
+
   }
-   
+
   //Executa as funções após página ser carregada
   window.onload = function() {
     loadGraph();
   };
-   
+
   //Chamada de getUrlData() de acordo com a taxa de atualização
   setInterval(function() {
     getUrlData();
-  }, txUpadate); 
-  
+  }, txUpadate);
+
 
   //Gera Cores Aleatórias
   function generateColor(){
      var hexa = '0123456789ABCDEF';
       var color = '#';
       for (var i = 0; i < 6; i++ ) color += hexa[Math.floor(Math.random() * 16)];
-    
+
       return color;
   }
 
@@ -232,27 +304,27 @@
   function generateReport(){
     window.print();
   }
-            
-  var report = document.getElementById("btnReport");     
+
+  var report = document.getElementById("btnReport");
 
   function getUrlData() {
     var xhttp = new XMLHttpRequest();
     //Função que tratará a resposta do servidor
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        //Pegando JSON da URL 
+        //Pegando JSON da URL
         var jsonData = this.responseText;
         var data = JSON.parse(jsonData);
 
         switch (data.SystemStatus){
           case "Inicializando":
-          //Limpando Dados Gráfico 
+          //Limpando Dados Gráfico
           colorReference = [];
           distanceValues = [];
           timeValues = [];
 
           colorReference[data.ReferenceSignal] = generateColor();
-           //Valores de Entrada 
+           //Valores de Entrada
           document.getElementById("Kp").innerHTML = data.Kp;
           document.getElementById("Kd").innerHTML = data.Kd;
           document.getElementById("Ki").innerHTML = data.Ki;
@@ -264,16 +336,16 @@
           document.getElementById("systemNotStable").style.display = 'none';
           document.getElementById("divReport").style.display = 'none';
 
-          loadGraph();  
+          loadGraph();
           break;
           case "Estabilizando":
             //Inserindo valores novos dados nos vetores de dados.
             var timeAt = new Date().toLocaleTimeString();// Hora atual
             distanceValues.push(data.Distance);
             timeValues.push(timeAt);
-            
+
             loadGraph();//Atualização do Gráfico
-            
+
             document.getElementById("status").innerHTML = data.SystemStatus;//Status do Sistema
 
             //Atualização da Tabela do Gráfico
@@ -282,8 +354,8 @@
             var newCellT = row.insertCell(0); // Insere uma nova célula na linha
             var newCellD = row.insertCell(1); // Insere uma nova célula na linha
             newCellT.innerHTML = timeAt;
-            newCellD.innerHTML = data.Distance;    
-            
+            newCellD.innerHTML = data.Distance;
+
             //Setando visibilidade das Divs de Resultado
             document.getElementById("systemStable").style.display = 'none';
             document.getElementById("systemNotStable").style.display = 'none';
@@ -292,14 +364,14 @@
 
             break;
           case "Estavel":
-          
-            //Mensagem de Sucesso + Parêmetros de Desempenho...   
+
+            //Mensagem de Sucesso + Parêmetros de Desempenho...
             document.getElementById("tSubida").innerHTML = data.UpTime;
             document.getElementById("tPico").innerHTML = data.PeakTime;
             document.getElementById("ovrShoot").innerHTML = data.Overshoot;
             document.getElementById("tAcomodacao").innerHTML = data.AccommodationTime;
             document.getElementById("erRegime").innerHTML = data.RegimeError;
-            
+
             document.getElementById("status").innerHTML = data.SystemStatus;//Status do Sistema
 
             //Setando visibilidade das Divs de Resultado
@@ -333,11 +405,10 @@
       2º Serviço(função) requisitada ao servidor;
       3º Comunicação Assíncrona(true).
     */
-    xhttp.open("GET", "readRequest", true);  
+    xhttp.open("GET", "readRequest", true);
     xhttp.send();
   }
-      
+
   </script>
 </body>
 </html>
-
