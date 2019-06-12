@@ -49,42 +49,16 @@
 
         <!-- Icon Cards-->
 				<h1>Variáveis de controle</h1>
-        <div class="row">
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-primary o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-fw fa-comments"></i>
-                </div>
-                <div class="mr-5">Kp</div>
-              </div>
-              <input type="number">
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-fw fa-list"></i>
-                </div>
-                <div class="mr-5">Kd</div>
-              </div>
-              <input type="number">
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-success o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-fw fa-shopping-cart"></i>
-                </div>
-                <div class="mr-5">Ki</div>
-              </div>
-              <input type="number">
-            </div>
-          </div>
+				<table id="table" >
+				<tr>
+					<th>Kp</th>
+					<th>Kd</th>
+					<th>Ki</th>
+					<th>Sinal de Referência</th>
+					<th>Status</th>
+				</tr>
+				<p></p>
+			</table>
 
 <script>
 window.onload = function () {
@@ -143,8 +117,9 @@ setInterval(function(){updateChart()}, updateInterval);
 <p><h2>Parâmetros de Desempenho</h2>
 							<table id="table" >
 							<tr>
-								<th>Tempo de Subida</th>
+								<th>Tempo de Subida/Descida</th>
 								<th>Tempo de Pico</th>
+								<th>Overshoot</th>
 								<th>Tempo de Acomodação</th>
 								<th>Erro Regime</th>
 							</tr></p>
