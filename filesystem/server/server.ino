@@ -3,9 +3,6 @@
 2) Adicione o HTML e CSS na pasta data
 3) Abra o arduino, vá em ferramentas e clique em Sketch Data Upload
 4) Será informado uma mensagem de sucesso 
-4) Para certificar, execute com cada arquivo criado:
- if(SPIFFS.exists("/teste.css"))
-    Serial.println("\n\nCSS exists!");
 */
 
 #include "FS.h"
@@ -36,6 +33,7 @@ void setup() {
       return;
   }
 
+  //Para certificar, execute com cada arquivo criado:
   if(SPIFFS.exists("/teste.css"))
   {
     Serial.println("\n\nCSS exists!");
@@ -52,9 +50,13 @@ void setup() {
    Serial.println(WiFi.localIP());
 
 
-   server.on("/html", HTTP_GET, [](AsyncWebServerRequest *request){
+    server.on("/teste", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/teste.html", "text/html");
-});
+  });
+ 
+  server.on("/teste.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/teste.css", "text/css");
+  });
 
    server.begin();
 
