@@ -32,14 +32,14 @@ typedef struct{
 
 //////////////////////////////////////////////////////////Sensor
 #include <Wire.h>
-#include <VL53L0X.h>
+//#include <VL53L0X.h>
 
 #define SDA 21
 #define SCL 22
 #define GPIO_SENSOR 23
 
 float filter(float );
-void initializeSensor(VL53L0X );
+//void initializeSensor(VL53L0X );
 
 //////////////////////////////////////////////////////////Encoder
 

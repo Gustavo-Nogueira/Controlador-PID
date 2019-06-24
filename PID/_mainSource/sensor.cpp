@@ -15,7 +15,7 @@ float filter(float input){
   return S;
 }
 
-void initializeSensor(VL53L0X sensor){
+/*void initializeSensor(VL53L0X sensor){
   Wire.begin(SDA, SCL, 400000); // taxa de 400 kHz
 
   pinMode(GPIO_SENSOR, INPUT);
@@ -41,4 +41,4 @@ void initializeSensor(VL53L0X sensor){
   #endif
 
   sensor.startContinuous();
-}
+}*/

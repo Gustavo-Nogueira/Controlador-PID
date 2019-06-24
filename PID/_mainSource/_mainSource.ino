@@ -1,10 +1,23 @@
+/*
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
-#include "Header_Functions.hpp"
-#include "index_WebPage.h"
 
-WebServer server(80);
+#include "index_WebPage.h"
+*/
+
+#include "Header_Functions.hpp"
+//#include "server.h"
+#include "ESP8266WiFi.h"
+#include "ESPAsyncTCP.h"
+#include "ESPAsyncWebServer.h"
+
+//WebServer server(80);
+
+const char* ssid = "anonimo";
+const char* password =  "eugenio1";
+
+AsyncWebServer server(80);
 
 VL53L0X sensor;
 
@@ -26,8 +39,8 @@ float distance;
 ////////////////////////
 
 //SSID e Senha da Rede
-const char* ssid     = "GustavoNr";
-const char* password = "10101010";
+//const char* ssid     = "GustavoNr";
+//const char* password = "10101010";
 //const char* ssid = "TORRE 01";
 //const char* password = "nogueira@2019";
 
@@ -105,19 +118,11 @@ void initializeServer(){
    //Define a ESP como ponto de Acesso
     WiFi.mode(WIFI_AP);
     WiFi.softAP(ssid, password);
-  */
+ 
 
-  //Conecta a ESP em uma rede
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-
-  Serial.print("Conectando na rede ");
-  Serial.println(ssid);
 
   //Aguardando estabeler conexão na rede
-  while(WiFi.waitForConnectResult() != WL_CONNECTED){
-      Serial.print(".");
-  }
+
 
   //Monitor Serial: caso consiga estabelecer a conexão
   Serial.println("");
@@ -125,19 +130,64 @@ void initializeServer(){
   Serial.println(ssid);
   Serial.print("Endereco IP Designado: ");
   Serial.println(WiFi.localIP()); //IP designado para ESP pela rede
+ */
+  //New
+  //Serial.begin(115200);
 
-  server.on("/", handleRoot); // Para indicar a rotina que tratará o carregamento inicial da página
+  SPIFFS.begin();
+ 
+  if(!SPIFFS.begin()){
+      Serial.println("An Error has occurred while mounting SPIFFS");
+      return;
+  }
+
+  //Para certificar, execute com cada arquivo criado:
+  if(SPIFFS.exists("/index_WebPage_HTML.html"))
+  {
+    Serial.println("\n\nHTML exists!");
+  }
+  else Serial.println("\n\nNo File :(");
+
+   WiFi.begin(ssid, password);
+ 
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(1000);
+      Serial.println("Connecting to WiFi..");
+}
+ 
+   Serial.println(WiFi.localIP());
+
+
+
+ /*
+  server.on("/teste.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/teste.css", "text/css");
+  });
+*/
+     
+
+  //server.on("/", handleRoot); // Para indicar a rotina que tratará o carregamento inicial da página
+  
+server.on("/teste", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/index_WebPage_HTML.html", "text/html");
+  });
+  
   server.on("/readRequest", handleUpdateRequest);// Para indicar a rotina que tratará as requisições da página
 
   server.begin();//Inícia o Servidor
+
   Serial.println("Servidor HTTP iniciado!");
+
+
+
 
 }
 
 //Método de inicialização da página
 void handleRoot(){
-  String webPage = WEB_PAGE; //Carrega a página na string
-  server.send(200, "text/html", webPage); //Enviar página da web
+  //String webPage = WEB_PAGE; //Carrega a página na string
+  //server.send(200, "text/html", webPage); //Enviar página da web
+      
 }
 
 //Para retornar os dados à página solicitados pela requisição
@@ -147,5 +197,3 @@ void handleUpdateRequest(){
 
   server.send(200, "text/plane", jsonData); //Envia dados JSON para a requisição AJAX
 }
-
-

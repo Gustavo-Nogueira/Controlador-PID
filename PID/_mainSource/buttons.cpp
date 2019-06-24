@@ -9,10 +9,9 @@ void initializeButtons(){
    pinMode(BTN[3],INPUT);
    pinMode(BTN[4],INPUT);
 }
-
+/*
 int readButtons(){
   for(int i = 0;i < 5;i++)
     if(digitalRead(BTN[i])) return (i+1);
   return 0;
-}
-
+}*/
