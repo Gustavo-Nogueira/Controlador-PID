@@ -202,6 +202,7 @@
   <script>
   var txUpadate = 100;//Taxa de atualização
   var colorReference = new Array(11);
+  colorReference[5] = "blue";
   var distanceValues = [];
   var timeValues = [];
   var lastStatus = "Inicializando";
@@ -252,8 +253,8 @@
                         },
                         ticks: {
                           min: 0,
-                          max: 1000,
-                          stepSize: 100
+                          max: 680,
+                          stepSize: 170
                         },
                         scaleLabel:{
                           display: true,
@@ -289,12 +290,17 @@
       return color;
   }
 
-  //Gera o relatório do sistema
-  function generateReport(){
+
+
+    var report = document.getElementById("btnReport");
+
+    //Gerando Relatório
+    report.addEventListener("click", generateReport);
+
+    //Gera o relatório do sistema
+    function generateReport(){
     window.print();
   }
-
-  var report = document.getElementById("btnReport");
 
   function getUrlData() {
     var xhttp = new XMLHttpRequest();
@@ -389,9 +395,6 @@
             document.getElementById("divMainNotStable").style.display = 'none';
             document.getElementById("divReport").style.display = 'block';
 
-            //Gerando Relatório
-            report.addEventListener("click", generateReport);
-
             lastStatus = "Estavel";
             break;
           case "Nao_Estavel":
@@ -404,8 +407,7 @@
             document.getElementById("systemStable").style.display = 'none';
             document.getElementById("divReport").style.display = 'block';
 
-            //Gerando Relatório
-            report.addEventListener("click", generateReport);
+            
 
             lastStatus = "Nao_Estavel";
             break;
