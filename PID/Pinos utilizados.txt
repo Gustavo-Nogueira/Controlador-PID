@@ -1,0 +1,52 @@
+PINOS UTILIZADOS - PI1
+
+//Pinos Potenciômetro Kp
+#define CLK1 4
+#define DT1 16
+#define SW1 17
+
+//Pinos Potenciômetro Kd
+#define CLK2 5
+#define DT2 18
+#define SW2 19
+
+//Pinos Potenciômetro Ki
+#define CLK3 12
+#define DT3 13
+#define SW3 14
+
+//Pinos Sensor
+#define SDA 21
+#define SCL 22
+#define GPIO_SENSOR 23
+
+//Botões dos Andares
+BTN1 32
+BTN2 33
+BTN3 25
+BTN4 26
+BTN5 27
+
+/// Codigo
+
+
+
+void setup()
+{
+
+  //pinMode(2,INPUT);
+  pinMode(2, OUTPUT);//Definimos o pino 2 (LED) como saída.
+ 
+  ledcAttachPin(2, 0);//Atribuimos o pino 2 ao canal 0.
+  ledcSetup(0, 1000, 10);//Atribuimos ao canal 0 a frequencia de 1000Hz com resolucao de 10bits.
+  
+}
+
+int i = 1023 -1023;
+void loop()
+{
+     
+    ledcWrite(0, i);//Escrevemos no canal 0, o duty cycle "i".
+    while(1);
+ 
+}
